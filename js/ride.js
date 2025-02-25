@@ -39,11 +39,7 @@ WildRydes.map = WildRydes.map || {};
     }
 
     function completeRequest(result) {
-        if (!result || !result.Unicorn) {
-        console.error('Unicorn object is missing or malformed in the API response.');
-        alert('An error occurred: Unicorn data is missing.');
-        return; // Exit if Unicorn data is missing
-    }
+        
         var unicorn;
         var pronoun;
         console.log('Response received from API: ', result);
