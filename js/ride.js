@@ -39,20 +39,23 @@ WildRydes.map = WildRydes.map || {};
     }
 
     function completeRequest(result) {
-        
-        var unicorn;
-        var pronoun;
-        console.log('Response received from API: ', result);
-        unicorn = result.Unicorn;
-        pronoun = unicorn.Gender === 'Male' ? 'his' : 'her';
-        displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' unicorn, is on ' + pronoun + ' way.');
-        animateArrival(function animateCallback() {
-            displayUpdate(unicorn.Name + ' has arrived. Giddy up!');
-            WildRydes.map.unsetLocation();
-            $('#request').prop('disabled', 'disabled');
-            $('#request').text('Set Pickup');
-        });
+    console.log('Response received from API:', result);
+    if (!result || !result.Unicorn) {
+        console.error('Error: Unicorn data is missing in the response', result);
+        alert('Error: No unicorn assigned. Please try again.');
+        return;
     }
+    var unicorn = result.Unicorn;
+    var pronoun = unicorn.Gender === 'Male' ? 'his' : 'her';
+    displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' unicorn, is on ' + pronoun + ' way.');
+    animateArrival(function animateCallback() {
+        displayUpdate(unicorn.Name + ' has arrived. Giddy up!');
+        WildRydes.map.unsetLocation();
+        $('#request').prop('disabled', 'disabled');
+        $('#request').text('Set Pickup');
+    });
+}
+
 
 
     // Register click handler for #request button
